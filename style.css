@@ -1,0 +1,635 @@
+/* ========== إعدادات عامة ========== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --gold: #D4AF37;
+    --gold-light: #F5D76E;
+    --gold-dark: #9A7B0F;
+    --blue-dark: #0B1120;
+    --blue-card: #111B2D;
+    --blue-lighter: #1A2A44;
+    --green: #2ECC71;
+    --red: #E74C3C;
+    --orange: #F39C12;
+    --pink: #FF80AB;
+    --white: #FFFFFF;
+    --gray: #A0B0C0;
+    --info: #3498DB;
+    --shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+    --radius: 32px;
+    --transition: all 0.25s cubic-bezier(0.2, 0, 0, 1);
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+body {
+    font-family: 'Cairo', sans-serif;
+    background: radial-gradient(circle at top left, #1A2A44, var(--blue-dark));
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    color: var(--white);
+    direction: rtl;
+    transition: background 0.5s, color 0.5s;
+}
+
+/* ========== شاشة البداية ========== */
+#splashScreen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at center, #1A2A44, var(--blue-dark));
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    transition: opacity 0.5s;
+    opacity: 1;
+}
+
+#splashScreen.fade-out {
+    opacity: 0;
+    pointer-events: none;
+}
+
+#splashScreen img {
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+    border: 4px solid var(--gold);
+    box-shadow: 0 0 40px var(--gold);
+    object-fit: cover;
+    background: var(--blue-dark);
+}
+
+#splashScreen h2 {
+    color: var(--gold);
+    margin-top: 20px;
+    font-family: 'Amiri', serif;
+}
+
+/* ========== الحاوية الرئيسية ========== */
+.game-container {
+    width: 100%;
+    max-width: 560px;
+    flex: 1;
+    min-height: 0;
+    margin: 10px auto;
+    background: rgba(17, 27, 45, 0.7);
+    backdrop-filter: blur(20px);
+    border: 2px solid var(--gold);
+    border-radius: var(--radius);
+    padding: 20px 16px;
+    box-shadow: var(--shadow), 0 0 30px rgba(212, 175, 55, 0.3);
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+/* ========== الشاشات ========== */
+.screen {
+    display: none;
+    width: 100%;
+    flex-direction: column;
+}
+
+.screen.active {
+    display: flex;
+    animation: slideUp 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ========== النصوص ========== */
+h1,
+h2,
+h3 {
+    font-weight: 700;
+    line-height: 1.4;
+}
+
+.title-main {
+    font-size: clamp(24px, 6vw, 30px);
+    background: linear-gradient(135deg, #FFD54F, #FFB300, #FF8F00);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    margin-bottom: 10px;
+    text-align: center;
+    text-shadow: 0 2px 10px rgba(255, 193, 7, 0.4);
+}
+
+.subtitle {
+    color: var(--gray);
+    font-size: 16px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* ========== الأزرار العامة ========== */
+.btn {
+    background: linear-gradient(135deg, var(--gold-light), var(--gold));
+    border: none;
+    color: var(--blue-dark);
+    font-weight: 700;
+    font-size: 18px;
+    padding: 14px 24px;
+    border-radius: 60px;
+    cursor: pointer;
+    box-shadow: 0 6px 0 var(--gold-dark), 0 6px 12px rgba(0, 0, 0, 0.3);
+    transition: var(--transition);
+    font-family: 'Cairo', sans-serif;
+    width: 100%;
+    margin: 6px 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0));
+    transform: skewX(-25deg);
+    animation: shine 3s infinite;
+}
+
+@keyframes shine {
+    0% { left: -100%; }
+    20% { left: 200%; }
+    100% { left: 200%; }
+}
+
+.btn:active {
+    transform: translateY(4px);
+    box-shadow: 0 2px 0 var(--gold-dark), 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.btn.small {
+    padding: 10px 16px;
+    font-size: 16px;
+    width: auto;
+    margin: 4px;
+}
+
+.btn-outline {
+    background: transparent;
+    border: 2px solid var(--gold);
+    color: var(--gold);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.btn-outline::after {
+    display: none;
+}
+
+/* ========== اختيار الوضع ========== */
+.mode-selector {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin: 18px 0;
+}
+
+.mode-btn {
+    background: var(--blue-lighter);
+    border: 1px solid var(--gold);
+    color: white;
+    padding: 10px 14px;
+    border-radius: 40px;
+    font-weight: 600;
+    font-size: 15px;
+    cursor: pointer;
+    transition: var(--transition);
+    flex: 1 0 100px;
+    box-shadow: 0 4px 0 #0F1A2A;
+}
+
+.mode-btn.active {
+    background: var(--gold);
+    color: var(--blue-dark);
+    border-color: white;
+    box-shadow: 0 4px 0 var(--gold-dark);
+}
+
+/* ========== شريط اللعبة ========== */
+.game-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.3);
+    padding: 10px 14px;
+    border-radius: 60px;
+    margin-bottom: 15px;
+    border: 1px solid var(--gold);
+}
+
+/* ========== شريط XP ========== */
+.xp-bar-container {
+    width: 100%;
+    height: 14px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    margin-bottom: 15px;
+    overflow: hidden;
+    border: 1px solid var(--gold);
+}
+
+.xp-bar-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, #D4AF37, #FFD700, #D4AF37);
+    border-radius: 10px;
+    transition: width 0.5s ease;
+    box-shadow: 0 0 10px var(--gold);
+}
+
+/* ========== صندوق السؤال ========== */
+.question-box {
+    background: rgba(255, 255, 255, 0.03);
+    padding: 22px 16px;
+    border-radius: 24px;
+    border: 1px solid var(--gold);
+    margin: 12px 0;
+    font-size: 20px;
+    font-weight: 600;
+    text-align: center;
+    animation: fadeInUp 0.5s ease;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ========== الخيارات ========== */
+.options-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin: 16px 0;
+}
+
+.option-btn {
+    background: var(--blue-card);
+    border: 2px solid var(--gold);
+    padding: 18px;
+    border-radius: 20px;
+    color: white;
+    font-size: 18px;
+    font-weight: 500;
+    text-align: center;
+    cursor: pointer;
+    transition: var(--transition);
+    box-shadow: 0 6px 0 #0A121F;
+    position: relative;
+    overflow: hidden;
+    animation: fadeInUp 0.5s ease;
+}
+
+.option-btn:nth-child(2) { animation-delay: 0.1s; }
+.option-btn:nth-child(3) { animation-delay: 0.2s; }
+.option-btn:nth-child(4) { animation-delay: 0.3s; }
+
+.option-btn:active::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(212, 175, 55, 0.4);
+    transform: translate(-50%, -50%);
+    animation: ripple 0.6s ease-out;
+}
+
+@keyframes ripple {
+    to {
+        width: 300px;
+        height: 300px;
+        opacity: 0;
+    }
+}
+
+.option-btn.correct {
+    background: var(--green);
+    border-color: white;
+    box-shadow: 0 4px 0 #1E8C4C;
+    animation: correct-pulse 0.3s ease-out;
+}
+
+.option-btn.wrong {
+    background: var(--red);
+    border-color: white;
+    box-shadow: 0 4px 0 #B03A2E;
+    animation: wrong-shake 0.4s ease-out;
+}
+
+.option-btn:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+@keyframes correct-pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+@keyframes wrong-shake {
+    0%, 100% { transform: translateX(0); }
+    20% { transform: translateX(-5px); }
+    50% { transform: translateX(5px); }
+    80% { transform: translateX(-3px); }
+}
+
+/* ========== صح وخطأ ========== */
+.tf-container {
+    display: flex;
+    gap: 16px;
+    margin: 20px 0;
+}
+
+.tf-btn {
+    flex: 1;
+    padding: 22px;
+    border-radius: 30px;
+    font-size: 22px;
+    font-weight: 800;
+    background: var(--blue-lighter);
+    border: 2px solid var(--gold);
+    color: white;
+    cursor: pointer;
+    box-shadow: 0 6px 0 #0F1A2A;
+    transition: var(--transition);
+}
+
+.tf-btn.correct {
+    background: var(--green);
+    animation: correct-pulse 0.3s ease-out;
+}
+
+.tf-btn.wrong {
+    background: var(--red);
+    animation: wrong-shake 0.4s ease-out;
+}
+
+.tf-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+/* ========== المساعدات ========== */
+.powerups-bar {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    margin: 10px 0;
+}
+
+.powerup-icon {
+    background: var(--blue-lighter);
+    border: 1px solid var(--gold);
+    width: 50px;
+    height: 50px;
+    border-radius: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    cursor: pointer;
+    transition: var(--transition);
+    box-shadow: 0 4px 0 #0F1A2A;
+}
+
+.powerup-icon.disabled {
+    opacity: 0.4;
+    pointer-events: none;
+    filter: grayscale(1);
+}
+
+/* ========== التلميح ========== */
+.hint-message {
+    background: rgba(212, 175, 55, 0.15);
+    border-right: 5px solid var(--gold);
+    padding: 14px;
+    border-radius: 16px;
+    margin: 15px 0;
+    text-align: right;
+    animation: fadeInUp 0.3s;
+}
+
+/* ========== لوحة الشرف ========== */
+.leaderboard-container {
+    margin-top: 24px;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 24px;
+    padding: 12px;
+}
+
+.leaderboard-list {
+    max-height: 200px;
+    overflow-y: auto;
+    margin: 10px 0;
+    padding: 0 8px;
+}
+
+/* ========== شاشة النتيجة ========== */
+.analytics-box {
+    background: rgba(231, 76, 60, 0.1);
+    border-right: 5px solid var(--red);
+    padding: 15px;
+    border-radius: 12px;
+    margin-bottom: 15px;
+    text-align: right;
+    font-size: 1.1rem;
+}
+
+/* ========== اختيار الصف ========== */
+.grade-selector {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin: 30px 0;
+}
+
+.grade-btn {
+    background: var(--blue-card);
+    border: 3px solid var(--gold);
+    padding: 24px;
+    border-radius: 25px;
+    color: white;
+    font-size: 22px;
+    font-weight: 700;
+    text-align: center;
+    cursor: pointer;
+    transition: var(--transition);
+    box-shadow: 0 8px 0 #0A121F;
+}
+
+.grade-btn:hover {
+    background: var(--gold);
+    color: var(--blue-dark);
+}
+
+/* ========== أزرار التحكم ========== */
+.sound-toggle {
+    position: fixed;
+    bottom: 70px;
+    left: 15px;
+    background: rgba(0, 0, 0, 0.6);
+    border: 1px solid var(--gold);
+    border-radius: 50%;
+    width: 45px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 500;
+    font-size: 22px;
+    color: var(--gold);
+    transition: var(--transition);
+}
+
+/* ========== الفوتر ========== */
+footer {
+    width: 100%;
+    text-align: center;
+    padding: 10px;
+    color: var(--gray);
+    font-size: 14px;
+    margin-top: auto;
+    flex-shrink: 0;
+}
+
+/* ========== العناصر المخفية ========== */
+.hidden {
+    display: none !important;
+}
+
+.hidden-badge {
+    display: none;
+    background: var(--gold);
+    color: var(--blue-dark);
+    padding: 6px 14px;
+    border-radius: 30px;
+    font-weight: bold;
+    margin-bottom: 8px;
+    text-align: center;
+}
+
+.hidden-badge.streak {
+    background: linear-gradient(135deg, #FF9800, #F44336);
+    color: white;
+    box-shadow: 0 0 12px #FF9800;
+}
+
+/* ========== الإشعارات ========== */
+.toast {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 14px 28px;
+    border-radius: 50px;
+    font-weight: bold;
+    z-index: 10000;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6);
+    animation: toast-fade 3s ease forwards;
+    font-size: 16px;
+    color: #fff;
+}
+
+.toast-info { background: #1E88E5; }
+.toast-success { background: #2ECC71; }
+.toast-error { background: #F44336; }
+
+@keyframes toast-fade {
+    0% { opacity: 0; bottom: 0; }
+    10% { opacity: 1; bottom: 20px; }
+    90% { opacity: 1; bottom: 20px; }
+    100% { opacity: 0; bottom: 0; }
+}
+
+/* ========== الفقعات ========== */
+.confetti-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 5000;
+}
+
+.confetti-piece {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    animation: fall linear forwards;
+}
+
+@keyframes fall {
+    to {
+        transform: translateY(100vh) rotate(720deg);
+        opacity: 0;
+    }
+}
+
+/* ========== المدخلات ========== */
+input,
+select {
+    background: var(--blue-card);
+    color: white;
+    border: 1px solid var(--gold);
+    border-radius: 30px;
+    padding: 10px;
+    text-align: center;
+    font-family: 'Cairo', sans-serif;
+    width: 100%;
+}
+
+.visitor-counter {
+    color: var(--gray);
+    text-align: center;
+    margin-top: 10px;
+}

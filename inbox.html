@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+    <meta name="theme-color" content="#D4AF37">
+    <title>تحدي النحو · مستر أحمد السمرى</title>
+    <link rel="icon" href="https://i.ibb.co/fzrt9v0M/1000213133.jpg">
+    <link rel="apple-touch-icon" href="https://i.ibb.co/fzrt9v0M/1000213133.jpg">
+    <link rel="manifest" href="data:application/manifest+json,%7B%22name%22:%22%D8%AA%D8%AD%D8%AF%D9%8A%20%D8%A7%D9%84%D9%86%D8%AD%D9%88%22,%22short_name%22:%22%D8%A7%D9%84%D9%86%D8%AD%D9%88%22,%22start_url%22:%22.%22,%22display%22:%22standalone%22,%22background_color%22:%22%230B1120%22,%22theme_color%22:%22%23D4AF37%22,%22icons%22:%5B%7B%22src%22:%22https://i.ibb.co/fzrt9v0M/1000213133.jpg%22,%22sizes%22:%22512x512%22,%22type%22:%22image/jpeg%22%7D%5D%7D">
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@700&family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="splashScreen">
+    <img src="https://i.ibb.co/fzrt9v0M/1000213133.jpg" alt="شعار">
+    <h2>مستر أحمد السمرى</h2>
+</div>
+
+<button id="soundToggle" class="sound-toggle">🔊</button>
+
+<main id="gameContainer" class="game-container">
+    <!-- الشاشات هنا -->
+    <section id="gradeScreen" class="screen active">
+        <h1 class="title-main">📖 اختر الصف الدراسي</h1>
+        <div class="grade-selector">
+            <button class="grade-btn" data-grade="grade4">🏫 الصف الرابع الابتدائي</button>
+            <button class="grade-btn" data-grade="grade5">🏫 الصف الخامس الابتدائي</button>
+        </div>
+        <div class="visitor-counter">👁️ الزوار: <span id="visitorCount">0</span></div>
+    </section>
+
+    <section id="startScreen" class="screen">
+        <h1 class="title-main"><span id="gradeLabel"></span> · تحدي النحو</h1>
+        <p class="subtitle" id="totalQSubtitle"></p>
+        <div class="mode-selector">
+            <button class="mode-btn active" data-mode="full">🏆 الكامل</button>
+            <button class="mode-btn" data-mode="quick">⚡ سريع</button>
+            <button class="mode-btn" data-mode="friend">👥 صديق</button>
+            <button class="mode-btn" data-mode="survival">🔥 بقاء</button>
+        </div>
+        <div id="friendNamesPanel" class="hidden">
+            <input type="text" id="player1Name" placeholder="اسم اللاعب الأول">
+            <input type="text" id="player2Name" placeholder="اسم اللاعب الثاني">
+        </div>
+        <button id="startGameBtn" class="btn">🚀 ابدأ التحدي</button>
+        <button id="shuffleBtn" class="btn small btn-outline">🔀 خلط الأسئلة</button>
+        <button id="changeGradeBtn" class="btn small btn-outline">🔄 تغيير الصف</button>
+        <div class="leaderboard-container">
+            <h3>🏆 لوحة الشرف</h3>
+            <div id="leaderboardList" class="leaderboard-list"></div>
+        </div>
+    </section>
+
+    <section id="gameScreen" class="screen">
+        <div class="xp-bar-container"><div id="xpBarFill" class="xp-bar-fill"></div></div>
+        <div class="game-bar">
+            <span>📌 <span id="currentQNumber">1</span>/<span id="totalQDisplay">0</span></span>
+            <div id="heartsDisplay">❤️❤️❤️</div>
+            <span>⭐ <span id="scoreDisplay">0</span></span>
+        </div>
+        <div id="playerTurnBadge" class="hidden-badge"></div>
+        <div id="streakDisplay" class="hidden-badge streak">🔥 0</div>
+        <div class="powerups-bar">
+            <button id="fiftyFifty" class="powerup-icon">🎲</button>
+            <button id="extraTime" class="powerup-icon">⏳</button>
+            <button id="hintPower" class="powerup-icon">💡</button>
+        </div>
+        <div class="question-box" id="questionText">جاري التحميل...</div>
+        <div id="optionsContainer" class="options-grid"></div>
+        <div id="tfContainer" class="tf-container hidden">
+            <button class="tf-btn" id="trueBtn">✅ صواب</button>
+            <button class="tf-btn" id="falseBtn">❌ خطأ</button>
+        </div>
+        <div id="hintBox" class="hint-message hidden"></div>
+        <button id="skipBtn" class="btn small">⏭️ تخطي</button>
+        <div id="feedbackMsg" class="feedback"></div>
+    </section>
+
+    <section id="endScreen" class="screen">
+        <h2>🎈 أحسنت! 🎈</h2>
+        <div id="finalResultContainer"></div>
+        <div id="starsRating"></div>
+        <div id="analyticsReport" class="analytics-box"></div>
+        <div id="gameStatsContainer"></div>
+        <input type="text" id="playerNameForLeaderboard" placeholder="اسمك للوحة الشرف">
+        <button id="saveScoreBtn" class="btn small">💾 حفظ النتيجة</button>
+        <button id="shareBtn" class="btn small btn-outline">📤 مشاركة</button>
+        <button id="reviewMistakesBtn" class="btn small btn-outline">🔄 مراجعة الأخطاء</button>
+        <button id="playAgainBtn" class="btn">🔄 العب مجدداً</button>
+    </section>
+</main>
+
+<footer>تم التطوير بواسطة: مستر أحمد السمرى © 2025</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
